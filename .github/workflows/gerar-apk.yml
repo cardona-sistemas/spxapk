@@ -19,17 +19,24 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Instalar Gradle e Android SDK
+    - name: Configurar Android SDK
       uses: android-actions/setup-android@v3
+
+    - name: Instalar Gradle no Sistema
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gradle
 
     - name: Compilar APK (Debug)
       working-directory: ./app-auxiliar-android
       run: |
-        gradle wrapper
-        ./gradlew assembleDebug --stacktrace
+        gradle assembleDebug --stacktrace
 
     - name: Salvar o APK gerado
       uses: actions/upload-artifact@v4
+      with:
+        name: Assistente-RotaSPX-APK
+        path: app-auxiliar-android/app/build/outputs/apk/debug/app-debug.apk
       with:
         name: Assistente-RotaSPX-APK
         path: app-auxiliar-android/app/build/outputs/apk/debug/app-debug.apk
