@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Assistente RotaSPX</string>
+    <string name="accessibility_service_description">Permite que o RotaSPX automatize a navegação de entrega e preenchimento de baixa no app da transportadora.</string>
+</resources>

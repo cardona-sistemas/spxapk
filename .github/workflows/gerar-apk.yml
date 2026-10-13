@@ -1,0 +1,35 @@
+name: Gerar APK RotaSPX
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v4
+
+    - name: Configurar Java 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Configurar Gradle
+      uses: gradle/actions/setup-gradle@v3
+
+    - name: Compilar APK (Debug)
+      run: |
+        cd app-auxiliar-android
+        chmod +x ./gradlew || true
+        gradle assembleDebug || gradle build
+
+    - name: Salvar o APK gerado
+      uses: actions/upload-artifact@v4
+      with:
+        name: Assistente-RotaSPX-APK
+        path: app-auxiliar-android/app/build/outputs/apk/debug/app-debug.apk
